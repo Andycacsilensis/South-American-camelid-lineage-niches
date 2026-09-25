@@ -30,9 +30,9 @@ This repository contains the data, processed environmental layers, and R scripts
 ```text
 .
 ├── data/
-│   ├── occurrences/              # Guanaco and vicuña occurrence data
 │   ├── environmental/            # Processed environmental variables
-│   └── spatial/                  # Accessible-area (M) polygons
+│   ├── occurrences/              # Occurrence records and environmental background points
+│   └── spatial/                  # Accessible-area (M) polygons by group
 │
 ├── scripts/
 │   ├── 00_data_preparation.R     # Data cleaning and preparation
@@ -67,28 +67,46 @@ The analytical workflow implemented in this repository includes:
 
 ## Data
 
-### Occurrence data
-
-Occurrence records for *Lama guanicoe* and *Vicugna vicugna* were compiled from multiple biodiversity databases and published sources. Records were obtained from the Global Biodiversity Information Facility (GBIF, 2026), iNaturalist (Mason et al., 2025), EutherianCoP (Mondanaro et al., 2025), and the South American Archaeological Isotopic Database (SAAID; Pezo-Lanfranco et al., 2024). For EutherianCoP and SAAID, only their modern occurrence records of guanaco and vicuña were incorporated into this dataset.
-
-These records were complemented by a review of regional studies spanning the distributional ranges of both species (Marín et al., 2008; Núñez, 2008; Castillo et al., 2018; Mesas et al., 2023; Rojas-Bonzi et al., 2024). Records were subsequently classified into lineages and contact-zone populations according to the geographic criteria described in the associated manuscript.
+The `data/` directory contains the processed datasets used by the analytical scripts and is organized into environmental, occurrence/background, and spatial data.
 
 ### Environmental data
 
-Environmental variables were obtained from [CHELSA v2.1](https://www.chelsa-climate.org/datasets) and processed to the spatial extent and resolution used in the study. The analyses were based on minimum temperature of the coldest month (BIO6), precipitation of the driest month (BIO14), and maximum Climatic Moisture Index (CMImax).
+The `data/environmental/` directory contains the three environmental variables used throughout the analyses:
 
-Processed environmental layers used in the analyses are provided in this repository. Details concerning environmental-variable preparation and their use in ellipsoidal ecological niche modelling are subject to the modelling note provided above and will be documented as part of the associated methodological work led by LJ.
+- `bio6.asc` — Minimum temperature of the coldest month (BIO6)
+- `bio14.asc` — Precipitation of the driest month (BIO14)
+- `cmi_max.asc` — Maximum Climatic Moisture Index (CMImax)
+
+The climatic variables were derived from [CHELSA v2.1](https://www.chelsa-climate.org/datasets) and processed to the spatial extent and resolution used in the study. Further details on environmental-variable preparation are provided in the associated manuscript and in the modelling note above.
+
+### Occurrence and background data
+
+The `data/occurrences/` directory contains the occurrence records assigned to each lineage or contact-zone population, together with the environmental background points sampled from their corresponding accessible areas (M).
+
+Occurrence records for *Lama guanicoe* and *Vicugna vicugna* were compiled from the Global Biodiversity Information Facility (GBIF), iNaturalist, EutherianCoP (Mondanaro et al., 2025), and the South American Archaeological Isotopic Database (SAAID; Pezo-Lanfranco et al., 2024). For EutherianCoP and SAAID, only modern occurrence records of guanaco and vicuña were incorporated. These data were complemented with records from regional studies spanning the distributions of both species (Marín et al., 2008; Núñez, 2008; Castillo et al., 2018; Mesas et al., 2023; Rojas-Bonzi et al., 2024).
+
+Files containing `occurrences` correspond to observed occurrence records, whereas files containing `Mpoints` represent environmental background points randomly sampled from the corresponding accessible area (M). Background samples comprise 10,000 points for each guanaco group and 5,000 points for each vicuña group.
 
 ### Accessible areas (M)
 
-Accessible areas (M) were constructed by integrating spatial information from three sources:
+The `data/spatial/` directory contains the spatial files defining the accessible area (M) of each lineage and contact-zone population:
+
+- *L. g. cacsilensis*
+- *L. g. guanicoe*
+- Guanaco contact-zone populations
+- *V. v. mensalis*
+- *V. v. vicugna*
+- Vicuña contact-zone populations
+
+Each group is stored in a separate directory containing the ESRI Shapefile and its associated component files.
+
+Accessible areas were constructed by integrating spatial information from three sources:
 
 1. current species distribution ranges reported by the [IUCN Red List of Threatened Species](https://www.iucnredlist.org/);
 2. historical distribution ranges available from [PHYLACINE 1.2](https://megapast2future.github.io/PHYLACINE_1.2/) (Faurby et al., 2018); and
 3. migration routes available through the [Atlas of Ungulate Migration](https://www.cms.int/gium), developed by the Global Initiative on Ungulate Migration (GIUM) under the Convention on the Conservation of Migratory Species of Wild Animals (CMS).
 
-These sources were integrated to construct species-level accessible-area hypotheses. Lineage- and contact-zone-specific M hypotheses were subsequently delimited according to the geographic criteria described in the associated manuscript. The resulting spatial layers used in the analyses are provided in this repository.
-
+These sources were integrated to construct species-level accessible-area hypotheses. Lineage- and contact-zone-specific M hypotheses were subsequently delimited according to the geographic criteria described in the associated manuscript.
 ## Requirements
 
 Analyses were conducted in R. The main packages used throughout the workflow include:

@@ -18,7 +18,7 @@ This repository contains the data, processed environmental layers, and R scripts
 ## Analytical framework
 
 <p align="center">
-  <img src="figures/analytical_framework.png" width="900">
+  <img src="figures/Figure 1_analytical_framework.png" width="900">
 </p>
 
 <p align="center">
